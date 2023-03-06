@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace isSymmetric
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -29,7 +29,7 @@ namespace isSymmetric
             Console.ReadKey();
         }
 
-        static Boolean isSymmetric(int[][] array)
+        public static Boolean isSymmetric(int[][] array)
         {
             for (int i = 0; i < array.Length; i++)
             {
