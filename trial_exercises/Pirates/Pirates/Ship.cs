@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace Pirates
 {
-    class Ship
+    public class Ship
     {
         private List<Pirate> _crew;
+
+        public Ship()
+        {
+            _crew = new List<Pirate>();
+        }
 
         private bool hasCaptain()
         {

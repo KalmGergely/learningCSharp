@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pirates
 {
-    class Captain : Pirate
+    public class Captain : Pirate
     {
         public Captain(string name) : base(name)
         {

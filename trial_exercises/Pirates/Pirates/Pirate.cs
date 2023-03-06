@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pirates
 {
-    class Pirate
+    public class Pirate
     {
         protected string _name;
         protected int _goldAmount;
