@@ -7,8 +7,18 @@ namespace RedditBackend.Models
         public int Id { get; set; }
 
         [MinLength(5)]
-        public string Title { get; set; } = string.Empty;
+        public string Title { get; set; } = null!;
 
-        public string Url { get; set; } = string.Empty;
+        [MinLength(10)]
+        public string Url { get; set; } = null!;
+
+        public int Score { get; set; }
+
+        public long TimeStamp { get; set; }
+
+        public int UserId { get; set; }
+
+        public User User { get; set; } = null!;
+        public ICollection<Vote> Votes { get; set; } = null!;
     }
 }
