@@ -1,4 +1,5 @@
 ﻿using RedditBackend.Models;
+using RedditBackend.Dtos;
 
 namespace RedditBackend.Services
 {
@@ -12,19 +13,25 @@ namespace RedditBackend.Services
         }
         public List<Post> IndexPosts()
         {
-            return _context.posts.ToList();
+            return //List<PostResponseDto>;
         }
 
-        public Post CreatePost(Post post)
+        public Post CreatePost(PostRequestDto post, //int userId)
         {
-            if (post.Title.Length < 5)
-            {
-                //throw new exception
-            }
+            //validation
 
-            _context.posts.Add(post);
+            Post newPost = new Post()
+            {
+                Title = post.Title,
+                Url = post.Url,
+                Score = 0,
+                TimeStamp = (DateTimeOffset.UtcNow).ToUnixTimeSeconds(),
+                UserId = //userId
+            };
+
+            _context.Posts.Add(newPost);
             _context.SaveChanges();
-            return post;
+            return //postresponseDto;
         }
     }
 }

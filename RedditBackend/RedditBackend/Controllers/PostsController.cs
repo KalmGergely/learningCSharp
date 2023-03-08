@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RedditBackend;
 using RedditBackend.Models;
+using RedditBackend.Dtos;
 using RedditBackend.Services;
 
 namespace RedditBackend.Controllers
@@ -30,7 +31,7 @@ namespace RedditBackend.Controllers
 
         // POST: Posts
         [HttpPost]
-        public ActionResult Create([FromBody] Post post)
+        public ActionResult Create([FromBody] PostRequestDto post) //header userid
         {
             return Created("Created", _postsService.CreatePost(post));
         }

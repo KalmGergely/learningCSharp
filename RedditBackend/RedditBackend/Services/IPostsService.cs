@@ -1,4 +1,5 @@
 ﻿using RedditBackend.Models;
+using RedditBackend.Dtos;
 
 namespace RedditBackend.Services
 {
@@ -6,6 +7,6 @@ namespace RedditBackend.Services
     {
         public List<Post> IndexPosts();
 
-        public Post CreatePost(Post post);
+        public Post CreatePost(PostRequestDto post);
     }
 }
