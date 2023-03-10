@@ -35,5 +35,20 @@ namespace RedditBackend.Controllers
         {
             return Created("Created", _postsService.CreatePost(post, UserId));
         }
+
+        // PATCH: Posts
+        [HttpPatch("{id}")]
+        public ActionResult UpdatePost(int id, [FromBody] PostRequestDto post)
+        {
+            return Ok(_postsService.UpdatePost(id, post));
+        }
+
+        //DELETE: Posts
+        [HttpDelete("{id}")]
+        public ActionResult DeletePost(int id)
+        {
+            _postsService.DeletePost(id);
+            return NoContent();
+        }
     }
 }

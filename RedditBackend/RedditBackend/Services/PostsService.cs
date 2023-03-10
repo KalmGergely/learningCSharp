@@ -55,5 +55,41 @@ namespace RedditBackend.Services
                 UserName = userName
             };
         }
+
+        public PostResponseDto UpdatePost(int id, PostRequestDto post)
+        {
+            //validation
+
+            Post updatedPost = _context.Posts.FirstOrDefault(p => p.Id == id);
+            updatedPost.Title = post.Title;
+            updatedPost.Url = post.Url;
+            updatedPost.TimeStamp = (DateTimeOffset.UtcNow).ToUnixTimeSeconds();
+
+            string userName = _context.Users.Find(updatedPost.UserId).Username;
+
+
+            _context.Posts.Update(updatedPost);
+            _context.SaveChanges();
+
+            return new PostResponseDto()
+            {
+                Id = updatedPost.Id,
+                Title = updatedPost.Title,
+                Url = updatedPost.Url,
+                Score = updatedPost.Score,
+                TimeStamp = updatedPost.TimeStamp,
+                UserName = userName
+            };
+        }
+
+        public void DeletePost(int id)
+        {
+            //validation
+
+            Post deletedPost = _context.Posts.Find(id);
+
+            _context.Posts.Remove(deletedPost);
+            _context.SaveChanges();
+        }
     }
 }
