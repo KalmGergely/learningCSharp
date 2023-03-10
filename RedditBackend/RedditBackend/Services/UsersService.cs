@@ -14,8 +14,6 @@ namespace RedditBackend.Services
 
         public UserResponseDto CreateUser(UserRequestDto user)
         {
-            //validation
-
             User newUser = new User(user.UserName, user.Password);
 
             _context.Users.Add(newUser);
