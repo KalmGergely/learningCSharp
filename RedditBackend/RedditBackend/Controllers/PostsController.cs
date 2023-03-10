@@ -31,9 +31,9 @@ namespace RedditBackend.Controllers
 
         // POST: Posts
         [HttpPost]
-        public ActionResult Create([FromBody] PostRequestDto post) //header userid
+        public ActionResult Create([FromBody] PostRequestDto post, [FromHeader] int UserId)
         {
-            return Created("Created", _postsService.CreatePost(post));
+            return Created("Created", _postsService.CreatePost(post, UserId));
         }
     }
 }

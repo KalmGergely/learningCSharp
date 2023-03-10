@@ -50,7 +50,7 @@ namespace RedditBackend.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("posts", (string)null);
+                    b.ToTable("Post");
                 });
 
             modelBuilder.Entity("RedditBackend.Models.User", b =>
@@ -74,7 +74,7 @@ namespace RedditBackend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("RedditBackend.Models.Vote", b =>
@@ -100,7 +100,7 @@ namespace RedditBackend.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Vote", (string)null);
+                    b.ToTable("Vote");
                 });
 
             modelBuilder.Entity("RedditBackend.Models.Post", b =>
@@ -117,7 +117,7 @@ namespace RedditBackend.Migrations
             modelBuilder.Entity("RedditBackend.Models.Vote", b =>
                 {
                     b.HasOne("RedditBackend.Models.Post", "Post")
-                        .WithMany("votes")
+                        .WithMany("Votes")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -135,7 +135,7 @@ namespace RedditBackend.Migrations
 
             modelBuilder.Entity("RedditBackend.Models.Post", b =>
                 {
-                    b.Navigation("votes");
+                    b.Navigation("Votes");
                 });
 
             modelBuilder.Entity("RedditBackend.Models.User", b =>

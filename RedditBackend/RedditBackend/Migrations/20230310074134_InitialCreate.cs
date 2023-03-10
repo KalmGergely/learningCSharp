@@ -5,34 +5,13 @@
 namespace RedditBackend.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateModels : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "Score",
-                table: "posts",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<long>(
-                name: "TimeStamp",
-                table: "posts",
-                type: "bigint",
-                nullable: false,
-                defaultValue: 0L);
-
-            migrationBuilder.AddColumn<int>(
-                name: "UserId",
-                table: "posts",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
-
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -43,7 +22,30 @@ namespace RedditBackend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Post",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Score = table.Column<int>(type: "int", nullable: false),
+                    TimeStamp = table.Column<long>(type: "bigint", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Post", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Post_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -60,22 +62,22 @@ namespace RedditBackend.Migrations
                 {
                     table.PrimaryKey("PK_Vote", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Vote_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_Vote_posts_PostId",
+                        name: "FK_Vote_Post_PostId",
                         column: x => x.PostId,
-                        principalTable: "posts",
+                        principalTable: "Post",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Vote_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_posts_UserId",
-                table: "posts",
+                name: "IX_Post_UserId",
+                table: "Post",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -87,44 +89,19 @@ namespace RedditBackend.Migrations
                 name: "IX_Vote_UserId",
                 table: "Vote",
                 column: "UserId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_posts_User_UserId",
-                table: "posts",
-                column: "UserId",
-                principalTable: "User",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.NoAction);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_posts_User_UserId",
-                table: "posts");
-
             migrationBuilder.DropTable(
                 name: "Vote");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Post");
 
-            migrationBuilder.DropIndex(
-                name: "IX_posts_UserId",
-                table: "posts");
-
-            migrationBuilder.DropColumn(
-                name: "Score",
-                table: "posts");
-
-            migrationBuilder.DropColumn(
-                name: "TimeStamp",
-                table: "posts");
-
-            migrationBuilder.DropColumn(
-                name: "UserId",
-                table: "posts");
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

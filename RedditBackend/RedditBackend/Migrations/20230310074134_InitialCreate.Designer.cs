@@ -11,8 +11,8 @@ using RedditBackend;
 namespace RedditBackend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230308180639_CreateModels")]
-    partial class CreateModels
+    [Migration("20230310074134_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,7 +53,7 @@ namespace RedditBackend.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("posts");
+                    b.ToTable("Post");
                 });
 
             modelBuilder.Entity("RedditBackend.Models.User", b =>
@@ -77,7 +77,7 @@ namespace RedditBackend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("RedditBackend.Models.Vote", b =>
@@ -120,7 +120,7 @@ namespace RedditBackend.Migrations
             modelBuilder.Entity("RedditBackend.Models.Vote", b =>
                 {
                     b.HasOne("RedditBackend.Models.Post", "Post")
-                        .WithMany("votes")
+                        .WithMany("Votes")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -138,7 +138,7 @@ namespace RedditBackend.Migrations
 
             modelBuilder.Entity("RedditBackend.Models.Post", b =>
                 {
-                    b.Navigation("votes");
+                    b.Navigation("Votes");
                 });
 
             modelBuilder.Entity("RedditBackend.Models.User", b =>

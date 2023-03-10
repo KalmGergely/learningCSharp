@@ -10,6 +10,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(builder =>
     builder.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IPostsService, PostsService>();
+builder.Services.AddScoped<IUsersService, UsersService>();
 
 builder.Services.AddMvc();
 

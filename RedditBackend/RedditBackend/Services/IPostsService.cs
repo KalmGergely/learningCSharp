@@ -5,8 +5,8 @@ namespace RedditBackend.Services
 {
     public interface IPostsService
     {
-        public List<Post> IndexPosts();
+        public List<PostResponseDto> IndexPosts();
 
-        public Post CreatePost(PostRequestDto post);
+        public PostResponseDto CreatePost(PostRequestDto post, int userId);
     }
 }
