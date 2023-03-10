@@ -12,26 +12,29 @@ namespace RedditBackend.Services
             _context = context;
         }
 
-        public User CreateUser(UserRequestDto user)
+        public UserResponseDto CreateUser(UserRequestDto user)
         {
             //validation
 
-            User newUser = new User()
-            {
-                Username = user.UserName,
-                Password = user.Password,
-                Vote = 0
-            };
+            User newUser = new User(user.UserName, user.Password);
 
             _context.Users.Add(newUser);
             _context.SaveChanges();
-            return newUser;
+            return newUser.ToDto();
         }
 
-        public List<User> Index()
+        public List<UserResponseDto> Index()
         {
             //validation
-            return _context.Users.ToList();
+            List<User> users = _context.Users.ToList();
+            List<UserResponseDto> responseDtos = new List<UserResponseDto>();
+
+            foreach (var user in users)
+            {
+                responseDtos.Add(user.ToDto());
+            }
+
+            return responseDtos;
         }
     }
 }

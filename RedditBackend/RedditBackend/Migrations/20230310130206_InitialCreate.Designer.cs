@@ -11,7 +11,7 @@ using RedditBackend;
 namespace RedditBackend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230310074134_InitialCreate")]
+    [Migration("20230310130206_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -111,7 +111,7 @@ namespace RedditBackend.Migrations
                     b.HasOne("RedditBackend.Models.User", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -122,13 +122,13 @@ namespace RedditBackend.Migrations
                     b.HasOne("RedditBackend.Models.Post", "Post")
                         .WithMany("Votes")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("RedditBackend.Models.User", "User")
                         .WithMany("Votes")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Post");

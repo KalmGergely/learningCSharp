@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using RedditBackend.Dtos;
+using System.ComponentModel.DataAnnotations;
 
 namespace RedditBackend.Models
 {
@@ -14,7 +15,26 @@ namespace RedditBackend.Models
 
         public int Vote { get; set; }
 
-        public ICollection<Post> Posts { get; set; } = null!;
-        public ICollection<Vote> Votes { get; set; } = null!;
+        public List<Post> Posts { get; set; } = null!;
+        public List<Vote> Votes { get; set; } = null!;
+
+        public User() { }
+        public User(string username, string password)
+        {
+            Username = username;
+            Password = password;
+            Vote = 0;
+        }
+
+        public UserResponseDto ToDto()
+        {
+            return new UserResponseDto()
+            {
+                Id = Id,
+                UserName = Username,
+                Password = Password,
+                Vote = Vote
+            };
+        }
     }
 }

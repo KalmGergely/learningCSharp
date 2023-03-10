@@ -5,7 +5,7 @@ namespace RedditBackend.Services
 {
     public interface IUsersService
     {
-        public User CreateUser(UserRequestDto user);
-        public List<User> Index();
+        public UserResponseDto CreateUser(UserRequestDto user);
+        public List<UserResponseDto> Index();
     }
 }

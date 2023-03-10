@@ -31,29 +31,14 @@ namespace RedditBackend.Services
         {
             //validation
 
-            Post newPost = new Post()
-            {
-                Title = post.Title,
-                Url = post.Url,
-                Score = 0,
-                TimeStamp = (DateTimeOffset.UtcNow).ToUnixTimeSeconds(),
-                User = _context.Users.FirstOrDefault(u => u.Id == UserId)
-            };
+            Post newPost = new Post(post.Title, post.Url, UserId);
 
             string userName = _context.Users.Find(UserId).Username;
 
             _context.Posts.Add(newPost);
             _context.SaveChanges();
 
-            return new PostResponseDto()
-            {
-                Id = newPost.Id,
-                Title = newPost.Title,
-                Url = newPost.Url,
-                Score = newPost.Score,
-                TimeStamp = newPost.TimeStamp,
-                UserName = userName
-            };
+            return newPost.ToDto();
         }
 
         public PostResponseDto UpdatePost(int id, PostRequestDto post)
@@ -65,21 +50,10 @@ namespace RedditBackend.Services
             updatedPost.Url = post.Url;
             updatedPost.TimeStamp = (DateTimeOffset.UtcNow).ToUnixTimeSeconds();
 
-            string userName = _context.Users.Find(updatedPost.UserId).Username;
-
-
             _context.Posts.Update(updatedPost);
             _context.SaveChanges();
 
-            return new PostResponseDto()
-            {
-                Id = updatedPost.Id,
-                Title = updatedPost.Title,
-                Url = updatedPost.Url,
-                Score = updatedPost.Score,
-                TimeStamp = updatedPost.TimeStamp,
-                UserName = userName
-            };
+            return updatedPost.ToDto();
         }
 
         public void DeletePost(int id)
